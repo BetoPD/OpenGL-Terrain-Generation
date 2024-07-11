@@ -28,7 +28,6 @@ bbenes@purdue.edu
 #include <array>
 
 #include "Terrain.h"
-#include "trackball.h"
 
 #pragma warning(disable : 4996)
 #pragma comment(lib, "glfw3.lib")
@@ -36,9 +35,6 @@ bbenes@purdue.edu
 using namespace std;
 
 int pointSize = 2;
-TrackBallC trackball;
-bool mouseLeft, mouseMid, mouseRight;
-GLdouble mouseX, mouseY;
 
 float terrainWidth = 100.0f;
 float terrainHeight = 100.0f;
@@ -77,70 +73,6 @@ static void KbdCallback(GLFWwindow *window, int key, int scancode, int action, i
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
-}
-
-// set the callbacks for the virtual trackball
-// this is executed when the mouse is moving
-void MouseCallback(GLFWwindow *window, double x, double y)
-{
-    // do not forget to pass the events to ImGUI!
-    ImGuiIO &io = ImGui::GetIO();
-    io.AddMousePosEvent(x, y);
-    if (io.WantCaptureMouse)
-        return; // make sure you do not call this callback when over a menu
-    // now process them
-    mouseX = x;
-    mouseY = y;
-    // we need to perform an action only if a button is pressed
-    if (mouseLeft)
-        trackball.Rotate(mouseX, mouseY);
-    if (mouseMid)
-        trackball.Translate(mouseX, mouseY);
-    if (mouseRight)
-        trackball.Zoom(mouseX, mouseY);
-}
-
-// set the variables when the button is pressed or released
-void MouseButtonCallback(GLFWwindow *window, int button, int state, int mods)
-{
-    // do not forget to pass the events to ImGUI!
-
-    ImGuiIO &io = ImGui::GetIO();
-    io.AddMouseButtonEvent(button, state);
-    if (io.WantCaptureMouse)
-        return; // make sure you do not call this callback when over a menu
-
-    // process them
-    if (button == GLFW_MOUSE_BUTTON_LEFT && state == GLFW_PRESS)
-    {
-        trackball.Set(window, true, mouseX, mouseY);
-        mouseLeft = true;
-    }
-    if (button == GLFW_MOUSE_BUTTON_LEFT && state == GLFW_RELEASE)
-    {
-        trackball.Set(window, false, mouseX, mouseY);
-        mouseLeft = false;
-    }
-    if (button == GLFW_MOUSE_BUTTON_MIDDLE && state == GLFW_PRESS)
-    {
-        trackball.Set(window, true, mouseX, mouseY);
-        mouseMid = true;
-    }
-    if (button == GLFW_MOUSE_BUTTON_MIDDLE && state == GLFW_RELEASE)
-    {
-        trackball.Set(window, true, mouseX, mouseY);
-        mouseMid = false;
-    }
-    if (button == GLFW_MOUSE_BUTTON_RIGHT && state == GLFW_PRESS)
-    {
-        trackball.Set(window, true, mouseX, mouseY);
-        mouseRight = true;
-    }
-    if (button == GLFW_MOUSE_BUTTON_RIGHT && state == GLFW_RELEASE)
-    {
-        trackball.Set(window, true, mouseX, mouseY);
-        mouseRight = false;
-    }
 }
 
 int main()
@@ -204,8 +136,6 @@ int main()
     ImGui_ImplOpenGL3_Init("#version 330");
 
     glfwSetKeyCallback(window, KbdCallback); // set keyboard callback to quit
-    glfwSetCursorPosCallback(window, MouseCallback);
-    glfwSetMouseButtonCallback(window, MouseButtonCallback);
 
     // Create the terrain
     Terrain terrain(100, 100, octaves, frequency, amplitude);
