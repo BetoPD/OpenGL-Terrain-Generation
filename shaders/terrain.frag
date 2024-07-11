@@ -12,6 +12,8 @@ flat in vec3 Normal;
 in vec3 fragPos;
 out vec4 col;
 
+// Ref: https://www.udemy.com/course/graphics-with-modern-opengl/learn/lecture/10017914#learning-tools
+
 struct DirectionLight
 {
 	vec3 color;
@@ -50,21 +52,6 @@ void main()
 
 	float diffuseFactor = max(dot(Normal, normalize(directionalLight.direction)), 0.0);
 	vec4 diffuseColor = vec4(directionalLight.color, 1.0f) * directionalLight.diffuseIntensity * diffuseFactor;
-
-	//vec4 specularColor = vec4(0.0f, 0.0f, 0.0f, 0.0f);
-	//
-	//if (diffuseFactor > 0.0)
-	//{
-	//	vec3 fragPosToCamera = normalize(cameraPosition - fragPos);
-	//	vec3 reflectedVertex = normalize(reflect(directionalLight.direction, normalize(Normal)));
-	//	float specularFactor = dot(fragPosToCamera, reflectedVertex);
-	//
-	//	if (specularFactor > 0.0)
-	//	{
-	//		specularFactor = pow(specularFactor, material.shininess);
-	//		specularColor = vec4(directionalLight.color * material.specularIntensity * specularFactor, 1.0f);
-	//	}
-	//}
 
 	col = col * (ambientColor + diffuseColor);
 }
