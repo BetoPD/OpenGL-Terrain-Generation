@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "C/C++: clang++ build active file",
+      "command": "/usr/bin/clang++",
+      "args": [
+        "-std=c++11",
+        "-fcolor-diagnostics",
+        "-fansi-escape-codes",
+        "-I${workspaceFolder}/Include",
+        "-I${workspaceFolder}/ImGui",
+        "-L${workspaceFolder}/lib",
+        "-lglfw3",
+        "-lGLEW",
+        "-g",
+        "${workspaceFolder}/src/*.cpp",
+        "${workspaceFolder}/ImGui/*.cpp",
+        "-o",
+        "${workspaceFolder}/app",
+        "-framework",
+        "OpenGL",
+        "-framework",
+        "Cocoa",
+        "-framework",
+        "IOKit",
+        "-framework",
+        "CoreVideo",
+        "-framework",
+        "GLUT"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build",
+      "detail": "compiler: /usr/bin/clang++"
+    }
+  ]
+}
