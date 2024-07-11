@@ -16,7 +16,7 @@ Terrain::Terrain(int width, int height, int octaves, float frequency, float ampl
     this->lightDirection = glm::vec3(0.0f, 1.0f, 0.0f);
     this->shininess = 32.0f;
     this->specularIntensity = 1.0f;
-    this->cameraPos = glm::vec3(50, 1, 0);
+    this->cameraPos = glm::vec3(0, 100, 10);
 
     // Perlin noise parameters
     float persistence = 0.5f;

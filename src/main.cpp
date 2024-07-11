@@ -28,7 +28,6 @@ bbenes@purdue.edu
 #include <array>
 
 #include "Terrain.h"
-#include "Camera.h"
 #include "trackball.h"
 
 #pragma warning(disable : 4996)
@@ -210,7 +209,6 @@ int main()
 
     // Create the terrain
     Terrain terrain(100, 100, octaves, frequency, amplitude);
-    Camera camera;
 
     bool Fill = false;
 
@@ -307,15 +305,6 @@ int main()
         {
             terrain.SetLightDirection(lightDirection);
         }
-        if (ImGui::SliderFloat("Specular Intensity", &specularIntensity, 0.00f, 1.0f, "%.2f", 0))
-        {
-            terrain.SetSpecularIntensity(specularIntensity);
-        }
-        if (ImGui::SliderFloat("Shininess", &shininess, 0.00f, 100.0f, "%.2f", 0))
-        {
-            terrain.SetShininess(shininess);
-        }
-
         ImGui::End();
 
         // set the projection matrix
