@@ -219,7 +219,7 @@ int main()
         {
             terrain.SetLightColor(lightColor);
         }
-        if (ImGui::SliderFloat("Diffuse Intensity", &diffuseIntensity, 0.00f, 1.0f, "%.2f", 0))
+        if (ImGui::SliderFloat("Diffuse Intensity", &diffuseIntensity, 0.00f, 10.0f, "%.2f", 0))
         {
             terrain.SetDiffuseIntensity(diffuseIntensity);
         }
